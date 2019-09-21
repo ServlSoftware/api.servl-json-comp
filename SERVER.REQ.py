@@ -7,35 +7,38 @@ workplaces = []
 workplaces.append(hash("SERVL"))  
 
 def req():
-  jIn = input()
-  jOut = json.loads(jIn)
+  JSON_Input = input()
+  JSON_PARSED_OUTPUT = json.loads(JSON_Input)
 
-  return jOut
+  return JSON_PARSED_OUTPUT
 
 print("Request (As JSON): ")
-jOut = req()
+JSON_PARSED_OUTPUT = req()
 
-jWork = jOut['workplace']
-jId = jOut['ID']
-jTime = jOut['Time']
-jAccpt = jOut['Accepted']
+PARSED_QUERY_WORK = JSON_PARSED_OUTPUT['workplace']
+PARSED_QUERY_ID = JSON_PARSED_OUTPUT['ID']
+PARSED_QUERY_TIME = JSON_PARSED_OUTPUT['Time']
+PARSED_QUERY_STATUS = JSON_PARSED_OUTPUT['Accepted']
 
-if hash(jWork) in workplaces:
-  print(jWork, jId)
+if hash(PARSED_QUERY_WORK) in workplaces:
+  print(PARSED_QUERY_WORK, PARSED_QUERY_ID)
 
-  if jAccpt == "False":
+  if PARSED_QUERY_STATUS == "False":
     print("Accept Login (Y/N)")
-    x = input()
+    _input_ = input()
 
-    if x == 'Y' or x == 'y':
-      jOut['Accepted'] = "True"
+    if _input_ == 'Y' or _input_ == 'y':
+      JSON_PARSED_OUTPUT['Accepted'] = "True"
     else:
-      jOut['Accepted'] = "False"
-
-    print(json.dumps(jOut))
+      JSON_PARSED_OUTPUT['Accepted'] = "False"
+    
+    #TEST DUMP
+    print(json.dumps(JSON_PARSED_OUTPUT))
 
   else:
+    #NO CHANGE NEEDED
     print("Login Already Accepted")
 
 else:
+  #THROW ERROR
   print("Workplace not found")
