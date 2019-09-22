@@ -9,7 +9,7 @@ import java.util.*;
 
 @WebServlet(urlPatterns = {"/_wpl_"})
 public class Theatre extends HttpServlet {
-
+        LinkedList<Log> logs = new LinkedList<Log>();
 
         //Run on page load
         public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -23,6 +23,10 @@ public class Theatre extends HttpServlet {
                 String RAW_ID = req.getParameter("ID");
                 Date date = new Date();
                 
+                if(RAW_WORKPLACE == null && RAW_ID == null){
+                        Log Temp = new Log(RAW_WORKPLACE, RAW_ID, date);
+                        logs.add(Temp);
+                }
                 out.print("{ \"workplace\":\"" + RAW_WORKPLACE + "\", \"ID\":\"" + RAW_ID +"\", \"Time\":\"" + date + "\"}");
                 
                 out.flush();
